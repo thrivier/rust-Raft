@@ -1,3 +1,7 @@
+mod state;
+
+use state::State;
+
 fn main() {
-    println!("Init Cargo things");
+    State::new(3, 3, 4);
 }
