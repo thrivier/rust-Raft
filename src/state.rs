@@ -13,13 +13,21 @@ pub struct State {
 */
 impl State {
     
-    /**
-    *   Public constructor for the state.
+    /** 
+    *   Public constructor for create State
+    *   Value initialize to 0.
+    */
+    pub fn new() -> State {
+        State {term: 0, cseq: 0, aseq: 0}
+    }
+
+    /** 
+    *   Public constructor for create state with some value.
     *   @constructor {u64} term - Index of the leader term
     *   @constructor {u64} cseq - Index of the last commit sequence
     *   @constructor {u64} aseq - Index of the last order append sequence
     */
-    pub fn new(term: u64, cseq: u64, aseq: u64) -> State {
+    pub fn new_with_value(term: u64, cseq: u64, aseq: u64) -> State {
         if cseq > aseq {
             panic!("state/state.rs State::new - aseq must be more than cseq");
         }
@@ -103,10 +111,18 @@ impl State {
 
 #[test]
 fn test_state_new_1() {
+    let test = State::new();
+    assert_eq!(0, test.aseq);
+    assert_eq!(0, test.cseq);
+    assert_eq!(0, test.term);
+}
+
+#[test]
+fn test_state_new_with_value_1() {
     let aseq = 3;
     let cseq = 2;
     let term = 1;
-    let test = State::new(term, cseq, aseq);
+    let test = State::new_with_value(term, cseq, aseq);
     assert_eq!(aseq, test.aseq);
     assert_eq!(cseq, test.cseq);
     assert_eq!(term, test.term);
@@ -114,11 +130,11 @@ fn test_state_new_1() {
 
 #[test]
 #[should_panic]
-fn test_state_new_2() {
+fn test_state_new_with_value_2() {
     let aseq = 1;
     let cseq = 2;
     let term = 3;
-    State::new(term, cseq, aseq);
+    State::new_with_value(term, cseq, aseq);
 }
 
 #[test]
