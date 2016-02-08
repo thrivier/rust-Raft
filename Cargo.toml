@@ -4,3 +4,5 @@ version = "0.1.0"
 authors = ["Thibault Riviere <thibault.riviere@scality.com>"]
 
 [dependencies]
+leveldb = "*"
+libc = "0.2.4"
